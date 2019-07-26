@@ -26,7 +26,7 @@ import Documents from './Documents';
 class App extends Component {
 
     state = {
-      currentElection: '',
+      currentElection: 'vxbpsGwV',
       pastElections: ['0npdJZZk','1d2v5qUX','aIOVUYry'],
       start_date: new Date("2019-07-25T12:00:00Z"),
       end_date: new Date("2019-07-06T22:31:00Z"),
@@ -38,7 +38,7 @@ class App extends Component {
      }
   
   componentDidMount() {
-    this.intervalID = setInterval(1000);
+    this.intervalID = setInterval(this.fetchData, 1000);
     this.fetchData();
   }
 
