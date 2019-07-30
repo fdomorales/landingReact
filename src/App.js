@@ -26,8 +26,8 @@ import Documents from './Documents';
 class App extends Component {
 
     state = {
-      currentElection: 'vxbpsGwV',
-      pastElections: ['0npdJZZk','1d2v5qUX','aIOVUYry'],
+      currentElection: '',
+      pastElections: ['1d2v5qUX','6oAr6qc1','aIOVUYry'],
       start_date: new Date("2019-07-25T12:00:00Z"),
       end_date: new Date("2019-07-06T22:31:00Z"),
       autentication: 3,
@@ -144,6 +144,7 @@ class App extends Component {
         <Header organizacion="Sintec"
         logo="https://s3.amazonaws.com/evoting/SINTEC/Logo.png"/>
         <List elections={this.state.pastElections} show="true" />
+        <hr/>
         <Help />
         <Footer/>
       </div>

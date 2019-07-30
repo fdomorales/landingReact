@@ -29,13 +29,16 @@ class List extends Component {
         {label}</div>
         <br />
         {this.state.show ?
-          <div className="row justify-content-center">
+          <div className="container">
+            <div className="row justify-content-center">
           {this.props.elections.map(e =>
-          <div className="col-12 col-sm-6 col-md-4 col-lg-3 mb-3">
+          <div className="col-12  mb-3">
             <BoxList election_id={e} />
           </div>
          )}
-        </div>        
+        </div> 
+          </div>
+                 
         : null }
         
       </div>
