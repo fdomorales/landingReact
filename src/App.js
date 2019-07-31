@@ -26,45 +26,59 @@ import Documents from './Documents';
 class App extends Component {
 
     state = {
-      currentElection: '',
+      currentElection: '1d2v5qUX',
       pastElections: ['1d2v5qUX','6oAr6qc1','aIOVUYry'],
       start_date: new Date("2019-07-25T12:00:00Z"),
       end_date: new Date("2019-07-06T22:31:00Z"),
-      autentication: 3,
+      autentication: 1, //""
       documents: false,
+      distritos: false,
       logo: "",
       resultados: false,
       datos:  {config:[]}
      }
   
   componentDidMount() {
-    this.intervalID = setInterval(this.fetchData, 1000);
+    this.intervalID = setInterval(this.fetchState, 1000);
+    this.intervalID = setInterval(this.district, 1000);
     this.fetchData();
+    this.district();
   }
 
   fetchData = async () => {
     try{
       const response = await fetch(`https://public-api.evoting.cl/api/election/${this.state.currentElection}`);
       const data = await response.json();
-      this.setState({datos: data, logo:data.configuration.logo_url});
-      if (data.state === "finished"){
-        this.setState({
-          resultados: true
-        });
-      }
+    this.setState({datos: data, logo:data.configuration.logo_url/*, autentication: data.configuration.identification_field*/});
+
     }catch(error){
 
     }
     
   }
 
+  fetchState = async () => {
+      if (this.state.datos.state=== "finished"){
+        this.setState({
+          resultados: true
+        });
+      }
+
+    }
+    district = () => {
+      if (this.state.datos){
+        this.setState({
+          distritos: true,
+        });
+        console.log(this.state.datos.districts);
+      }
+    }
+    
+  
 
   componentWillUnmount() {
     clearInterval(this.intervalID);
   }
-
- 
-
 
   render() {
     let steps;
@@ -114,15 +128,15 @@ class App extends Component {
       case 15 : 
       steps = <StepsDistRutQuestions/>;
       break;
-      default: return null;
     }
+
     let doc = null;
     if (this.state.documents){
       doc = <Documents/>
     }
-
     
     if (this.state.currentElection){
+      
       return (
       <div className="container">
         <Header organizacion={this.state.datos.organization_name}
